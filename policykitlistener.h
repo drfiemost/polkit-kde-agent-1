@@ -45,7 +45,7 @@ public slots:
                                 const PolkitQt1::Details &details,
                                 const QString &cookie,
                                 const PolkitQt1::Identity::List &identities,
-                                PolkitQt1::Agent::AsyncResult* result);
+                                PolkitQt1::Agent::AsyncTask* result);
     bool initiateAuthenticationFinish();
     void cancelAuthentication();
 
@@ -66,7 +66,7 @@ private:
     bool m_wasCancelled;
     int m_numTries;
     PolkitQt1::Identity::List m_identities;
-    PolkitQt1::Agent::AsyncResult* m_result;
+    PolkitQt1::Agent::AsyncTask* m_result;
     QString m_cookie;
     PolkitQt1::Identity m_selectedUser;
     QHash< QString, qulonglong > m_actionsToWID;

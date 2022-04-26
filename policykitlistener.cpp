@@ -66,7 +66,7 @@ void PolicyKitListener::initiateAuthentication(const QString &actionId,
         const PolkitQt1::Details &details,
         const QString &cookie,
         const PolkitQt1::Identity::List &identities,
-        PolkitQt1::Agent::AsyncResult* result)
+        PolkitQt1::Agent::AsyncTask* result)
 {
     kDebug() << "Initiating authentication";
 
@@ -150,7 +150,7 @@ void PolicyKitListener::finishObtainPrivilege()
     }
 
     if (!m_session.isNull()) {
-        m_session.data()->result()->setCompleted();
+        m_session.data()->task()->setCompleted();
     } else {
         m_result->setCompleted();
     }
