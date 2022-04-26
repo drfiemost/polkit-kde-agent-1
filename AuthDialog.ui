@@ -121,9 +121,6 @@
   <zorder>errorMessageKTW</zorder>
   <zorder>lblPassword</zorder>
   <zorder>lePassword</zorder>
-  <zorder>cbRemember</zorder>
-  <zorder>cbSessionOnly</zorder>
-  <zorder>horizontalSpacer</zorder>
   <zorder>userCB</zorder>
  </widget>
  <customwidgets>
@@ -146,26 +143,6 @@
  <tabstops>
   <tabstop>userCB</tabstop>
   <tabstop>lePassword</tabstop>
-  <tabstop>cbRemember</tabstop>
-  <tabstop>cbSessionOnly</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>cbRemember</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>cbSessionOnly</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>259</x>
-     <y>161</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>161</x>
-     <y>169</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
 </ui>
