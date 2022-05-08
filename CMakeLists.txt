@@ -17,6 +17,8 @@ find_package(KDE4 REQUIRED)
 set(POLKITQT-1_MIN_VERSION "0.99.0")
 find_package(PolkitQt-1 REQUIRED)
 
+set(CMAKE_AUTOMOC ON)
+
 include_directories(${KDE4_INCLUDES}
                     ${POLKITQT-1_INCLUDE_DIR}
                     ${CMAKE_CURRENT_SOURCE_DIR}
