@@ -18,6 +18,9 @@ set(POLKITQT-1_MIN_VERSION "0.99.0")
 find_package(PolkitQt-1 REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
+set_property(SOURCE polkit1authagentadaptor.h
+                    ui_AuthDialog.h
+                    ui_authdetails.h PROPERTY SKIP_AUTOMOC ON)
 
 include_directories(${KDE4_INCLUDES}
                     ${POLKITQT-1_INCLUDE_DIR}
