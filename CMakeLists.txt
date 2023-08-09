@@ -14,6 +14,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
 find_package(KDE4 REQUIRED)
 
+add_definitions(-DKDE_NO_DEPRECATED)
+
 set(POLKITQT-1_MIN_VERSION "0.99.0")
 find_package(PolkitQt-1 REQUIRED)
 
