@@ -14,7 +14,11 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
 find_package(KDE4 REQUIRED)
 
-add_definitions(-DKDE_NO_DEPRECATED)
+set(POLKIT_KDE_1_VERSION_MAJOR "0")
+set(POLKIT_KDE_1_VERSION_MINOR "99")
+set(POLKIT_KDE_1_VERSION_PATCH "0")
+set(POLKIT_KDE_1_VERSION_STRING
+    "${POLKIT_KDE_1_VERSION_MAJOR}.${POLKIT_KDE_1_VERSION_MINOR}.${POLKIT_KDE_1_VERSION_PATCH}")
 
 set(POLKITQT-1_MIN_VERSION "0.99.0")
 find_package(PolkitQt-1 REQUIRED)
@@ -46,6 +50,15 @@ target_link_libraries(polkit-kde-authentication-agent-1
                                          ${KDE4_KDEUI_LIBS}
                                          ${POLKITQT-1_LIBRARIES}
 )
+
+include(CheckIncludeFile)
+include(CheckSymbolExists)
+check_include_file("sys/prctl.h" HAVE_SYS_PRCTL_H)
+check_symbol_exists(PR_SET_DUMPABLE "sys/prctl.h" HAVE_PR_SET_DUMPABLE)
+add_feature_info("prctl-dumpable" HAVE_PR_SET_DUMPABLE "Required for disallow ptrace on polkit agent")
+
+# create config file
+configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 configure_file(polkit-kde-authentication-agent-1.desktop.in ${CMAKE_BINARY_DIR}/polkit-kde-authentication-agent-1.desktop)
 

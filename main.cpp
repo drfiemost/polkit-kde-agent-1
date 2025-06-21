@@ -18,6 +18,8 @@
 
 */
 
+#include "config.h"
+
 #include <KCmdLineArgs>
 #include <KAboutData>
 #include <KLocale>
@@ -25,9 +27,18 @@
 
 #include "policykitkde.h"
 
+#if HAVE_SYS_PRCTL_H
+#include <sys/prctl.h>
+#endif
+
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("Polkit1AuthAgent", "polkit-kde-authentication-agent-1", ki18n("PolicyKit1-KDE"), "0.99.0",
+    // disable ptrace
+#if HAVE_PR_SET_DUMPABLE
+    prctl(PR_SET_DUMPABLE, 0);
+#endif
+
+    KAboutData aboutData("Polkit1AuthAgent", "polkit-kde-authentication-agent-1", ki18n("PolicyKit1-KDE"), POLKIT_KDE_1_VERSION,
                          ki18n("PolicyKit1-KDE"), KAboutData::License_GPL,
                          ki18n("(c) 2009 Red Hat, Inc."));
     aboutData.addAuthor(ki18n("Jaroslav Reznik"), ki18n("Maintainer"), "jreznik@redhat.com");

@@ -324,9 +324,17 @@ AuthDetails::AuthDetails(const PolkitQt1::Details &details,
 {
     setupUi(this);
 
-    app_label->setText(appname);
+    // better N/A than a blank spaceMore actions
+    if (appname.isEmpty()) {
+        QFont nameFont = app_label->font();
+        nameFont.setItalic(true);
+        app_label->setFont(nameFont);
+        app_label->setText(i18n("Not Applicable"));
+    } else {
+        app_label->setText(appname);
+    }
 
-    foreach(const QString &key, details.keys()) { //krazy:exclude=foreach (Details is not a map/hash, but rather a method)
+    for(const QString &key: details.keys()) {
         int row = gridLayout->rowCount() + 1;
 
         QLabel *keyLabel = new QLabel(this);
@@ -334,12 +342,24 @@ AuthDetails::AuthDetails(const PolkitQt1::Details &details,
                                 "provided by polkit", "%1:", key));
         gridLayout->addWidget(keyLabel, row, 0);
 
+        keyLabel->setAlignment(Qt::AlignRight);
+        QFont lblFont(keyLabel->font());
+        lblFont.setBold(true);
+        keyLabel->setFont(lblFont);
+
         QLabel *valueLabel = new QLabel(this);
         valueLabel->setText(details.lookup(key));
         gridLayout->addWidget(valueLabel, row, 1);
     }
 
-    action_label->setText(actionDescription.description());
+    if (actionDescription.description().isEmpty()) {
+        QFont descrFont(action_label->font());
+        descrFont.setItalic(true);
+        action_label->setFont(descrFont);
+        action_label->setText(i18n("'Description' not provided"));
+    } else {
+        action_label->setText(actionDescription.description());
+    }
 
     action_label->setTipText(i18n("Click to edit %1", actionDescription.actionId()));
     action_label->setUrl(actionDescription.actionId());
