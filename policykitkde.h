@@ -30,7 +30,7 @@ class PolicyKitKDE : public KUniqueApplication
     Q_OBJECT
 public:
     PolicyKitKDE();
-    virtual ~PolicyKitKDE();
+    ~PolicyKitKDE() override;
 private:
     PolicyKitListener *m_listener;
 };
